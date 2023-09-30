@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <div id="title-container">
+    <title>Home page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+
+</head>
+<body>
+
+<h1>TODO SCRUM PROJECT</h1>
+
+<p>Welcome home page</p>
+<p>Here, you can find valuable information about our website.</p>
+
+<h2>About Us</h2>
+<p>You can login and enter your todo list and the time taken for it.</p>
+
+<p th:if="${loggedIn}">
+    Username:
+    <b th:text="${username}"></b>
+</p>
+
+<form action="/logout" method="post" th:if="${loggedIn}">
+    <input
+        type="hidden"
+        th:name="${_csrf.parameterName}"
+        th:value="${_csrf.token}"/>
+
+
+    <button type="submit">Logout</button>
+    <button onclick="location.href='/checklist'" type="button">Checklist</button>
+
+
+</form>
+
+<p th:unless="${loggedIn}">
+    <button onclick="location.href='/login'" type="button">Login</button>
+</p>
+
+<h2>Contact Us</h2>
+<p>If you have any questions or inquiries, please feel free to reach out to us:</p>
+<p>Email: info@jensen.com</p>
+<p>Phone: 123-456-7890</p>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Checklist Page</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    
+</head>
+<body>
+<h1>TODO LISTS</h1>
+
+
+
+
+<button onclick="location.href='/'" type="button">Start</button>
+
+<p>Enter your lists below</p>
+
+<ul>
+    <li th:each="todo : ${todos}">
+        <input type="checkbox" th:checked="${todo.isDone}" th:value="${todo.isDone}" disabled >
+        <b><label th:text="${todo.description}" /></b> <br>
+
+        <b>Time to complete</b>: <span th:text="${todo.timeToComplete}" />
+        
+        ( Prio <span th:text="${todo.prio}" /> ) <br>
+
+        <a th:href="@{/todo/{id}(id=${todo.id})}">Show</a>
+        <hr>
+    </li>
+</ul>
+
+<form action="/create" method="post">
+
+    <input
+            type="hidden"
+            th:name="${_csrf.parameterName}"
+            th:value="${_csrf.token}"/>
+
+    <textarea id="description" name="description" placeholder="Description"></textarea><br>
+
+    <select name="prio">
+        <option disabled selected>Select priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select> <br>
+
+    <input type="text" id="timeToComplete" name="timeToComplete" placeholder="Time to Complete" /><br>
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="isDone" name="isDone"/>
+        <label class="form-check-label" for="isDone">Is Done</label>
+    </div>
+
+    <button class="btn" type="submit">Save</button>
+</form>
+
+</body>
+</html>

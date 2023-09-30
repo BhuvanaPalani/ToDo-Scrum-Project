@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<main>
+
+    <a href="/">Start</a>
+
+    <div class="edit">
+
+        <form th:action="@{/todo/{id}/edit(id=${todo.id})}" method="post">
+
+            <textarea id="description" name="description" placeholder="Description" th:text="${todo.description}"></textarea><br>
+
+            <input type="number" id="timeToComplete" name="timeToComplete" placeholder="Time to Complete" th:value="${todo.timeToComplete}" /><br>
+
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="isDone" name="isDone" th:checked="${todo.isDone}" th:value="${todo.isDone}" />
+                <label class="form-check-label" for="isDone">Is Done</label>
+            </div>
+
+            <select name="prio" th:value="${todo.prio}">
+                <option disabled>Select priority</option>
+                <option value="Low" th:selected='${todo.prio.equals("Low")}'>Low</option>
+                <option value="Medium" th:selected='${todo.prio.equals("Medium")}'>Medium</option>
+                <option value="High" th:selected='${todo.prio.equals("High")}'>High</option>
+            </select> <br>
+
+            <button class="btn" type="submit">Save</button>
+
+        </form>
+
+        <form th:action="@{/todo/{id}/delete(id=${todo.id})}" method="post">
+
+            <button class="btn delete-btn" type="submit">Delete</button>
+
+        </form>
+
+    </div>
+
+
+</main>
+
+</body>
+</html>
